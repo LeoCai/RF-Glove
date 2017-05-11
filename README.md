@@ -14,7 +14,14 @@
 4. 图表模块(CharDrawer)画出对应采样信号
 5. 动作检测模块(ActionManager)监测信号并采取相关动作
 
-## 主要类介绍：
+## 主要类介绍
 1. 系统主入口： [ImpinjStater.java](https://github.com/LeoCai/RF-Glove/blob/master/src/dislab/rfidaction/core/ImpinjStater.java)
 2. 动作监听管理： [ActionManger.java](https://github.com/LeoCai/RF-Glove/blob/master/src/dislab/rfidaction/core/ActionManager.java)
 3. 弹琴动作事件监测： [PianoActionChecker.java](https://github.com/LeoCai/RF-Glove/blob/master/src/dislab/rfidaction/core/actionchecker/PianoActionChecker.java)
+
+## 注意事项
+1. 阅读器IP地址
+2. 标签EPC
+3. 标签MASK
+
+均在[ImpinjStater.java](https://github.com/LeoCai/RF-Glove/blob/master/src/dislab/rfidaction/core/ImpinjStater.java)中修改
