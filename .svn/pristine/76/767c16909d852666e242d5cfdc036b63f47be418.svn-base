@@ -1,0 +1,45 @@
+package dislab.rfidaction.core.actionchecker;
+
+import java.util.List;
+
+import dislab.rfidaction.core.view.RockGameGui;
+
+public class RockGameChecker extends AbstractActionChecker {
+
+	RockGameGui rockGameGui = new RockGameGui();
+	private int threhold = 4000;
+
+	public RockGameChecker(List<String> tags) {
+		super(tags);
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public String checkAction(double[] targetTagRssi) {
+		// TODO Auto-generated method stub
+		if (!rockGameGui.isVisible())
+			rockGameGui.setVisible(true);
+		int[] tagUpDown = tagRssiEncoder.encode(targetTagRssi, initRssi,
+				threhold);
+		printTagUpDown(tagUpDown, new int[] { 5, 6, 7, 8, 9 });
+		if (checkUpDownEqual(tagUpDown, new int[] { 5, 6 }, new int[] { 0, 0 })) {
+			rockGameGui.setImage(rockGameGui.BU);
+
+		} else if (checkUpDownEqual(tagUpDown, new int[] { 5, 6 }, new int[] {
+				-1, 0 })) {
+			rockGameGui.setImage(rockGameGui.JIANDAO);
+
+		} else if (checkUpDownEqual(tagUpDown, new int[] { 6 },
+				new int[] { -1 })) {
+			rockGameGui.setImage(rockGameGui.STONE);
+		}
+		return null;
+	}
+
+	@Override
+	public void exit() {
+		// TODO Auto-generated method stub
+		rockGameGui.setVisible(false);
+	}
+
+}
