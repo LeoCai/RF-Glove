@@ -20,8 +20,10 @@
 3. 弹琴动作事件监测： [PianoActionChecker.java](https://github.com/LeoCai/RF-Glove/blob/master/src/dislab/rfidaction/core/actionchecker/PianoActionChecker.java)
 
 ## 注意事项
-1. 阅读器IP地址
-2. 标签EPC
-3. 标签MASK
+1. 阅读器IP地址 [ImpinjStater.java](https://github.com/LeoCai/RF-Glove/blob/master/src/dislab/rfidaction/core/ImpinjStater.java)中修改
+2. 标签EPC [ImpinjStater.java](https://github.com/LeoCai/RF-Glove/blob/master/src/dislab/rfidaction/core/ImpinjStater.java)中修改
+3. 标签MASK [ImpinjStater.java](https://github.com/LeoCai/RF-Glove/blob/master/src/dislab/rfidaction/core/ImpinjStater.java)中修改
+4. 弹琴动作阈值修改 [PianoActionChecker.java](https://github.com/LeoCai/RF-Glove/blob/master/src/dislab/rfidaction/core/actionchecker/PianoActionChecker.java)
 
-均在[ImpinjStater.java](https://github.com/LeoCai/RF-Glove/blob/master/src/dislab/rfidaction/core/ImpinjStater.java)中修改
+
+
