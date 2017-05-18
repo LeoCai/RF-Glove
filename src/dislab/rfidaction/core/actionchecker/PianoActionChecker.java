@@ -12,9 +12,9 @@ import dislab.rfidaction.core.CommandInfo;
 public class PianoActionChecker extends AbstractActionChecker {
 
 	private int[] tagPressed;
-	//press和release的阈值都为6000
-	private double threholdPressPinao = 48;
-	private double threholdReleasePinao = 48;
+	/**
+	 * 每根手指对应的阈值，最好每次都根据pinao.csv数据调一下
+	 */
 	private double[] threholds = new double[]{
 		48,48,43,42,48,48,48,49,50,50	
 	};
@@ -38,11 +38,19 @@ public class PianoActionChecker extends AbstractActionChecker {
 
 	}
 
+	/**
+	 * 匹配钢琴动作
+	 * @param tagRssi
+	 * 标签的RSSI
+	 * @param index
+	 * 标签对应的索引
+	 * @param key
+	 * 钢琴键与index对应
+	 */
 	private void matchPianoAction(double[] tagRssi, int index, int key) {
 		double rssi = tagRssi[index];
 		double threholdPress = threholds[index] ;
-		double threholdRress = threholds[index];
-//		if(index!=3&&index!=2) {
+		//		if(index!=3&&index!=2) {
 //			threholdPress = threholdRress = threholdPressPinao;
 //		}
 		if (rssi > threholdPress ) {

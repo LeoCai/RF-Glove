@@ -35,30 +35,36 @@ import dislab.rfidaction.utils.TagsInit;
  */
 public class ImpinjStater implements TagReportListener {
 
-	FileWriter logger;
-
-	{
-		try {
-			logger = new FileWriter("piano.csv");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
+	/**
+	 * 阅读器IP地址
+	 * 注意每次确认阅读器IP地址是否正确
+	 */
+	private static final String READER_IP = "192.168.1.100";
+	
+	/**
+	 * 六根手指对应的标签EPC，若更换标签后这边一定要换
+	 * 注意MASK设置，目前设置只允许E200开头
+	 */
+	private String tagEPCs[] = new String[] { "E200 9027 6205 0162 2320 2724", "E280 1160 6000 0204 A12A 5ADA",
+			"E280 1160 6000 0204 A12A 5A8A", "E280 1160 6000 0204 A12A 5A9A", "E200 9027 6205 0162 2480 196C",
+			"E200 9027 6205 0148 0520 DDD0", "E280 1160 6000 0204 A12A 5ABA", "E280 1160 6000 0204 A12A 5AAA",
+			"E280 1160 6000 0204 A12A 5ACA", "E200 9027 6205 0148 0510 DDCF" };
+	/**
+	 * 读取数据的缓存区大小
+	 */
 	private static final int BUFFER_SIZE = 10;
-	private ArrayList<ArrayList<Tag>> tagBufferLists = new ArrayList<ArrayList<Tag>>();
 
+	/**
+	 * 缓冲队列
+	 */
+	private ArrayList<ArrayList<Tag>> tagBufferLists = new ArrayList<ArrayList<Tag>>();
 	{
 		for (int i = 0; i < 4; i++) {
 			tagBufferLists.add(new ArrayList<Tag>());
 		}
 	}
 
-	private String tagEPCs[] = new String[] { "E200 9027 6205 0162 2320 2724", "E280 1160 6000 0204 A12A 5ADA",
-			"E280 1160 6000 0204 A12A 5A8A", "E280 1160 6000 0204 A12A 5A9A", "E200 9027 6205 0162 2480 196C",
-			"E200 9027 6205 0148 0520 DDD0", "E280 1160 6000 0204 A12A 5ABA", "E280 1160 6000 0204 A12A 5AAA",
-			"E280 1160 6000 0204 A12A 5ACA", "E200 9027 6205 0148 0510 DDCF" };
+	
 
 	private List<String> tagsStrList = Arrays.asList(tagEPCs);
 
@@ -67,6 +73,19 @@ public class ImpinjStater implements TagReportListener {
 	private int timeCount;
 
 	private ActionManager actionManager = new ActionManager(tagsStrList);
+	
+	/**
+	 * 每次都会将数据写入piano.csv中，供debug用
+	 */
+	FileWriter logger;
+	{
+		try {
+			logger = new FileWriter("piano.csv");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 	public ImpinjStater() throws IOException, InterruptedException {
 		this.chartDrawer = ChartDrawer.getInstance();
@@ -78,17 +97,19 @@ public class ImpinjStater implements TagReportListener {
 
 	}
 
+	/**
+	 * 初始化阅读器
+	 * 注意MASK设置
+	 */
 	private void initReader() {
 
 		try {
-			String hostname = "192.168.1.100";
-
 			ImpinjReader reader = new ImpinjReader();
 
 			this.chartDrawer.setReader(reader);
 
 			System.out.println("Connecting");
-			reader.connect(hostname);
+			reader.connect(READER_IP);
 
 			Settings settings = reader.queryDefaultSettings();
 
@@ -149,6 +170,11 @@ public class ImpinjStater implements TagReportListener {
 		}
 	}
 
+	/**
+	 * 将读到的tag放到对应缓冲区位置
+	 * @param myAntenna
+	 * @param tag
+	 */
 	private void addToBuffer(int myAntenna, Tag tag) {
 		// TODO Auto-generated method stub
 		List<Tag> tagList = tagBufferLists.get(myAntenna);
