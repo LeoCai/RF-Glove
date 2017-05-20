@@ -24,6 +24,6 @@
 2. 标签EPC [ImpinjStater.java](https://github.com/LeoCai/RF-Glove/blob/master/src/dislab/rfidaction/core/ImpinjStater.java)中修改
 3. 标签MASK [ImpinjStater.java](https://github.com/LeoCai/RF-Glove/blob/master/src/dislab/rfidaction/core/ImpinjStater.java)中修改
 4. 弹琴动作阈值修改 [PianoActionChecker.java](https://github.com/LeoCai/RF-Glove/blob/master/src/dislab/rfidaction/core/actionchecker/PianoActionChecker.java)
-
+5. MultiReader 修改标签EPC
 
 
